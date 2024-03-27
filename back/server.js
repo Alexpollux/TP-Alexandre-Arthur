@@ -14,7 +14,7 @@ const renvoi = new Resend(process.env.RESEND_API_KEY);
 
 app.get('/api/beers/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
-    fs.readFile('data_beers.json', (err, data) => {
+    fs.readFile('back/data_beers.json', (err, data) => {
         if (err) {
             res.status(500).send('Erreur lors de la lecture du fichier');
             return;
@@ -30,7 +30,7 @@ app.get('/api/beers/:id', (req, res) => {
 });
 
 app.get('/api/beers', (req, res) => {
-    fs.readFile('data_beers.json', (err, data) => {
+    fs.readFile('back/data_beers.json', (err, data) => {
         if (err) {
             res.status(500).send('Erreur lors de la lecture du fichier');
             return;
