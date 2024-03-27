@@ -44,18 +44,18 @@ app.get('/api/beers', (req, res) => {
 app.get('/api/reset-db', (req, res) => {
     fs.readFile(path_data_beers_backup, 'utf8', (err, data) => {
         if (err) {
-            console.error("Erreur lors de la lecture de la database de backup :", err);
+            res.status(500).send("Erreur lors de la lecture de la database de backup");
             return;
         }
 
         // Écriture (écrasement) du contenu dans le fichier de destination
         fs.writeFile(path_data_beers, data, 'utf8', (err) => {
             if (err) {
-                console.error("Erreur lors de l'écriture dans la database :", err);
+                res.status(500).send("Erreur lors de l'écriture dans la database");
                 return;
             }
 
-            console.log('La database a été reset avec succès.');
+            res.send('La database a été reset avec succès');
         });
     });
 })
