@@ -1,5 +1,6 @@
 const express = require("express");
 const fs = require('fs');
+const cors = require('cors');
 const { Resend } = require('resend');
 
 require('dotenv').config()
@@ -8,6 +9,7 @@ const app = express();
 const port = 1234;
 
 app.use(express.json());
+app.use(cors());
 
 // Il faut un fichier .env avec une variable qui s'appelle RESEND_API_KEY et a pour valeur la clé API pour resend
 const renvoi = new Resend(process.env.RESEND_API_KEY);
