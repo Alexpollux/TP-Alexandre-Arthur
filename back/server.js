@@ -11,12 +11,14 @@ app.use(express.json());
 
 // Il faut un fichier .env avec une variable qui s'appelle RESEND_API_KEY et a pour valeur la clé API pour resend
 const renvoi = new Resend(process.env.RESEND_API_KEY);
+const path_data_beers = 'back/data_beers.json';
+const path_data_beers_backup = 'back/data_beers_backup.json';
 
 app.get('/api/beers/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);
-    fs.readFile('back/data_beers.json', (err, data) => {
+    fs.readFile(path_data_beers, (err, data) => {
         if (err) {
-            res.status(500).send('Erreur lors de la lecture du fichier');
+            res.status(500).send('Erreur lors de la lecture de la database');
             return;
         }
         const beers = JSON.parse(data);
@@ -30,14 +32,33 @@ app.get('/api/beers/:id', (req, res) => {
 });
 
 app.get('/api/beers', (req, res) => {
-    fs.readFile('back/data_beers.json', (err, data) => {
+    fs.readFile(path_data_beers, (err, data) => {
         if (err) {
-            res.status(500).send('Erreur lors de la lecture du fichier');
+            res.status(500).send('Erreur lors de la lecture de la database');
             return;
         }
         res.json(JSON.parse(data));
     });
 });
+
+app.get('/api/reset-db', (req, res) => {
+    fs.readFile(path_data_beers_backup, 'utf8', (err, data) => {
+        if (err) {
+            console.error("Erreur lors de la lecture de la database de backup :", err);
+            return;
+        }
+
+        // Écriture (écrasement) du contenu dans le fichier de destination
+        fs.writeFile(path_data_beers, data, 'utf8', (err) => {
+            if (err) {
+                console.error("Erreur lors de l'écriture dans la database :", err);
+                return;
+            }
+
+            console.log('La database a été reset avec succès.');
+        });
+    });
+})
 
 app.post('/api/send-email', async (req, res) => {
     const { subject, html } = req.body;
