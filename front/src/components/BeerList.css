@@ -1,0 +1,44 @@
+.beer-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-left: 80px;
+    padding-right: 80px;
+    margin-top: 20px;
+
+}
+  
+.beer-card {
+    width: 30%; /* Chaque carte aura une largeur de 30% de la liste */
+    margin-bottom: 20px; /* Espace au bas de chaque carte */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre subtile pour les cartes */
+    padding: 10px; /* Espacement à l'intérieur des cartes */
+    text-align: center; /* Centre le texte dans la carte */
+    text-decoration: none;
+  }
+  
+.beer-image{
+  max-width: 100%;
+  height: 100px;
+}
+  
+.beer-card h3 {
+  margin-top: 10px;
+  text-decoration: none;
+}
+  
+.first-brewed, .tagline {
+  font-size: 0.9em;
+  text-decoration: none;
+}
+
+.beer-card:hover {
+  background-color: #f8f8f8; /* Couleur de fond au survol */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Ombre plus prononcée au survol */
+}
+
+h3, .first-brewed, .tagline {
+  color: black; 
+  text-decoration: none;
+}
+
