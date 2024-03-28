@@ -34,12 +34,38 @@ app.get('/api/beers/:id', (req, res) => {
 });
 
 app.get('/api/beers', (req, res) => {
+    const {brewed_after, brewed_before} = req.query;
     fs.readFile(path_data_beers, (err, data) => {
         if (err) {
             res.status(500).send('Erreur lors de la lecture de la database');
             return;
         }
-        res.json(JSON.parse(data));
+
+        let beers = JSON.parse(data);
+
+        if (brewed_before && brewed_before.split('/').length === 2) {
+            beers = beers.filter(beer => {
+                if (beer.first_brewed && beer.first_brewed.split('/').length === 2) {
+                    const beerDate = new Date(beer.first_brewed.split('/')[1], beer.first_brewed.split('/')[0] - 1);
+                    const beforeDate = new Date(brewed_before.split('/')[1], brewed_before.split('/')[0] - 1);
+                    return beerDate <= beforeDate;
+                }
+                return false;
+            });
+        }
+
+        if (brewed_after && brewed_after.split('/').length === 2) {
+            beers = beers.filter(beer => {
+                if (beer.first_brewed && beer.first_brewed.split('/').length === 2) {
+                    const beerDate = new Date(beer.first_brewed.split('/')[1], beer.first_brewed.split('/')[0] - 1);
+                    const afterDate = new Date(brewed_after.split('/')[1], brewed_after.split('/')[0] - 1);
+                    return beerDate >= afterDate;
+                }
+                return false;
+            });
+        }
+
+        res.json(beers);
     });
 });
 
@@ -71,7 +97,7 @@ app.post('/api/send-email', async (req, res) => {
         from: 'Acme <onboarding@resend.dev>',
         to: ['arthur.delaporte@eemi.com'],
         subject: subject,
-        html: '<strong>'+html+'</strong>',
+        html: html,
     });
 
     if (error) {
