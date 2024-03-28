@@ -9,8 +9,8 @@ const Header = () => {
   return (
     <header className="header">
       {showFilters && <FilterBar />}
-      <button onClick={() => setShowFilters(!showFilters)} className="filter-button">Filtres</button>
-      <Link to="/" className="header-link">La Liste à Bière</Link>
+      <button onClick={() => setShowFilters(!showFilters)} className="filter-button">Filter</button>
+      <Link to="/" className="header-link">D'une bière deux coups</Link>
       <nav className="header-nav">
         <Link to="/contact" className="header-nav-link">Contact</Link>
       </nav>
