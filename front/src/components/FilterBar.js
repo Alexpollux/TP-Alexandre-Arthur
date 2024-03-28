@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import './FilterBar.css';
 
 const FilterBar = ({ onFilter }) => {
-  const [startDate, setStartDate] = useState({ month: '01', year: '2000' });
-  const [endDate, setEndDate] = useState({ month: '12', year: '2022' });
+  const [startDate, setStartDate] = useState({ month: '01', year: '2007' });
+  const [endDate, setEndDate] = useState({ month: '12', year: '2016' });
 
   const handleFilter = () => {
     onFilter(startDate, endDate);
@@ -28,7 +28,8 @@ const FilterBar = ({ onFilter }) => {
             id="start-year" 
             value={startDate.year}
             onChange={(e) => setStartDate({ ...startDate, year: e.target.value })}
-            min="2000" 
+            min="2007"
+            max="2015" 
           />
         </div>
         <div>
@@ -46,7 +47,8 @@ const FilterBar = ({ onFilter }) => {
             id="end-year" 
             value={endDate.year}
             onChange={(e) => setEndDate({ ...endDate, year: e.target.value })}
-            min="2000" 
+            min="2008"
+            max="2016"
           />
         </div>
       </div>
