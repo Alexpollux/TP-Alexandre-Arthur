@@ -15,14 +15,19 @@ const Header = () => {
   return (
     <header className="header">
       {location.pathname === '/' && (
-          <button onClick={() => setShowFilters(!showFilters)} className="filter-button">
-            Filter
-          </button>
-        )}
+        <button onClick={() => setShowFilters(!showFilters)} className="filter-button">
+          Filtres
+        </button>
+      )}
       {showFilters && <FilterBar />}
-      <Link to="/" className="header-link">D'une bière deux coups</Link>
+      {location.pathname !== '/' && (
+        <Link to="/" className="header-link" style={{paddingLeft:'94px'}}>D'une bière deux coups</Link>
+      )}
+      {location.pathname === '/' && (
+        <Link to="/" className="header-link">D'une bière deux coups</Link>
+      )}
       <nav className="header-nav">
-        <Link to="/contact" className="header-nav-link">Contact</Link>
+      <Link to="/contact" className="header-nav-link">Contact</Link>
         
       </nav>
     </header>
