@@ -1,33 +1,33 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: #f8f8f8;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: relative; /* Pour positionner la FilterBar en absolute par rapport au header */
-  }
-  
-  .header-link {
-    text-decoration: none;
-    color: black;
-    font-size: 24px;
-    font-weight: bold;
-    margin: 0 auto; /* Centrer le lien */
-  }
-  
-  .header-nav a {
-    text-decoration: none;
-    color: #007bff;
-    font-size: 18px;
-  }
-  
-  .filter-button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #0e1111; /* Noir ardoise */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative; /* Pour positionner la FilterBar en absolute par rapport au header */
+}
+
+.header-link, .header-nav a {
+  text-decoration: none;
+  color: white; /* Texte blanc */
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 auto; /* Centrer le lien si c'est le seul élément dans le header */
+}
+
+.header-nav a {
+  font-size: 18px;
+}
+
+.filter-button {
+  background-color: #0e1111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
