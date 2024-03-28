@@ -5,6 +5,7 @@
     padding: 10px;
     background-color: #f8f8f8;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative; /* Pour positionner la FilterBar en absolute par rapport au header */
   }
   
   .header-link {
@@ -12,13 +13,21 @@
     color: black;
     font-size: 24px;
     font-weight: bold;
-    margin-left: 20px;
+    margin: 0 auto; /* Centrer le lien */
   }
   
   .header-nav a {
     text-decoration: none;
     color: #007bff;
     font-size: 18px;
-    margin-right: 20px;
+  }
+  
+  .filter-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
   }
   

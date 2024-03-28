@@ -1,38 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './BeerList.css';
+import FilterBar from './FilterBar'; // Assurez-vous d'importer FilterBar
 
 function BeerList() {
   const [beers, setBeers] = useState([]);
   const [filteredBeers, setFilteredBeers] = useState([]);
-  const [search, setSearch] = useState('');
 
   useEffect(() => {
     fetch('http://localhost:1234/api/beers')
       .then(response => response.json())
       .then(data => {
         setBeers(data);
-        setFilteredBeers(data);
+        setFilteredBeers(data); // Initialise les bières filtrées avec toutes les bières
       })
       .catch(error => console.error("Error fetching data: ", error));
   }, []);
 
-  useEffect(() => {
-    const results = beers.filter(beer =>
-      beer.first_brewed.toLowerCase().includes(search.toLowerCase())
-    );
-    setFilteredBeers(results);
-  }, [search, beers]);
+  const handleFilter = (start, end) => {
+    // Logique de filtrage ici
+    const startFilter = `${start.year}-${start.month}`;
+    const endFilter = `${end.year}-${end.month}`;
+
+    const filtered = beers.filter(beer => {
+      const [month, year] = beer.first_brewed.split('/');
+      const beerDate = `${year}-${month.padStart(2, '0')}`;
+      return beerDate >= startFilter && beerDate <= endFilter;
+    });
+
+    setFilteredBeers(filtered);
+  };
 
   return (
     <div>
-      <input 
-        type="text" 
-        placeholder="Filtrer par date (mm/yyyy)" 
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="search-bar"
-      />
+      <FilterBar onFilter={handleFilter} />
       <div className="beer-list">
         {filteredBeers.map(beer => (
           <Link to={`/beer/${beer.id}`} className="beer-card" key={beer.id}>
