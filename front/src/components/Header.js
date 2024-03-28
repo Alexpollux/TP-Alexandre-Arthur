@@ -20,6 +20,7 @@ const Header = () => {
           </button>
         )}
       {showFilters && <FilterBar />}
+      <button onClick={() => setShowFilters(!showFilters)} className="filter-button">Filtres</button>
       <Link to="/" className="header-link">D'une bière deux coups</Link>
       <nav className="header-nav">
         <Link to="/contact" className="header-nav-link">Contact</Link>
