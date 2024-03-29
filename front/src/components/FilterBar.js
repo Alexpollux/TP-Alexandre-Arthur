@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './FilterBar.css';
 
 const FilterBar = ({ onFilter }) => {
   const [startDate, setStartDate] = useState({ month: '01', year: '2007' });
   const [endDate, setEndDate] = useState({ month: '12', year: '2016' });
+  const [beer, setBeer] = useState(null);
+
+  useEffect(() => {
+    fetch(`http://localhost:1234/api/beers?brewed_before=${startDate}&brewed_after=${endDate}`) // Utilisez le bon port ici aussi
+      .then(response => response.json())
+      .then(data => setBeer(data))
+      .catch(error => console.error("Error fetching data: ", error));
+  }, [startDate, endDate]);
 
   const handleFilterClick = () => {
-    console.log(onFilter); 
-    if (typeof onFilter === 'function') {
-      const filters = {
-        startDate, 
-        endDate, 
-      };
-      onFilter(filters);
-    } else {
-      console.error('onFilter is not a function');
-    }
+    fetch(`http://localhost:1234/api/beers?brewed_before=${startDate}&brewed_after=${endDate}`)
   };
 
   return (

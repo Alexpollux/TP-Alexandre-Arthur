@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './BeerList.css';
-import FilterBar from './FilterBar';
+
 
 function BeerList() {
   const [beers, setBeers] = useState([]);
@@ -33,7 +33,6 @@ function BeerList() {
 
   return (
     <div>
-      <FilterBar onFilter={handleFilter} />
       <div className="beer-list">
         {filteredBeers.map(beer => (
           <Link to={`/beer/${beer.id}`} className="beer-card" key={beer.id}>
