@@ -37,7 +37,7 @@ npm run start-back
 
 et dans un autre terminal :
 
-npm run start-back
+npm run start-front
 
 
 Cela lancera l'application en mode développement. Ouvrez [http://localhost:3000](http://localhost:3000) pour la voir dans le navigateur.
