@@ -5,8 +5,17 @@ const FilterBar = ({ onFilter }) => {
   const [startDate, setStartDate] = useState({ month: '01', year: '2007' });
   const [endDate, setEndDate] = useState({ month: '12', year: '2016' });
 
-  const handleFilter = () => {
-    onFilter(startDate, endDate);
+  const handleFilterClick = () => {
+    console.log(onFilter); 
+    if (typeof onFilter === 'function') {
+      const filters = {
+        startDate, 
+        endDate, 
+      };
+      onFilter(filters);
+    } else {
+      console.error('onFilter is not a function');
+    }
   };
 
   return (
@@ -52,9 +61,12 @@ const FilterBar = ({ onFilter }) => {
           />
         </div>
       </div>
-      <button onClick={handleFilter}>Appliquer les filtres</button>
+      <button onClick={handleFilterClick}>Appliquer les filtres</button>
     </div>
   );
 };
 
 export default FilterBar;
+
+
+
