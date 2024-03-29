@@ -9,6 +9,10 @@ const Header = () => {
   const location = useLocation();
   const { handleFilter } = useBeers();
 
+  const closeFilters = () => {
+        setShowFilters(false);
+    };
+
   useEffect(() => {
     setShowFilters(false);
   }, [location]);
@@ -20,7 +24,7 @@ const Header = () => {
           Filtres
         </button>
       )}
-      {showFilters && <FilterBar onFilter={handleFilter}/>}
+      {showFilters && <FilterBar onFilter={handleFilter} onClose={closeFilters}/>}
       {location.pathname !== '/' && (
         <Link to="/" className="header-link" style={{paddingLeft:'94px'}}>D'une bière deux coups</Link>
       )}

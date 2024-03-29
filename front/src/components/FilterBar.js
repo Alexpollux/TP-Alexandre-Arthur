@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './FilterBar.css';
 
-const FilterBar = ({ onFilter }) => {
+const FilterBar = ({ onFilter, onClose }) => {
   const [startDate, setStartDate] = useState({ month: '01', year: '2007' });
   const [endDate, setEndDate] = useState({ month: '12', year: '2016' });
 
@@ -14,6 +14,9 @@ const FilterBar = ({ onFilter }) => {
         startDate: formattedStartDate,
         endDate: formattedEndDate,
       });
+      if (typeof onClose === 'function') {
+        onClose(); // Fermer le menu des filtres après l'application
+      }
     } else {
       console.error('onFilter is not a function');
     }
