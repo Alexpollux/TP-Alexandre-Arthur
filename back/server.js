@@ -1,7 +1,7 @@
 const express = require("express");
 const fs = require('fs');
 const cors = require('cors');
-const { Resend } = require('resend');
+const { sendEmail } = require('./send-email');
 
 require('dotenv').config()
 
@@ -11,8 +11,6 @@ const port = 1234;
 app.use(express.json());
 app.use(cors());
 
-// Il faut un fichier .env avec une variable qui s'appelle RESEND_API_KEY et a pour valeur la clé API pour resend
-const renvoi = new Resend(process.env.RESEND_API_KEY);
 const path_data_beers = 'back/data_beers.json';
 
 app.get('/api/beers/:id', (req, res) => {
@@ -73,12 +71,7 @@ app.post('/api/send-email', async (req, res) => {
 
     console.log(req.body)
 
-    const { data, error } = await renvoi.emails.send({
-        from: 'Acme <onboarding@resend.dev>',
-        to: ['arthur.delaporte@eemi.com'],
-        subject: subject,
-        html: html,
-    });
+    const { data, error } = await sendEmail("arthur.delaporte@eemi.com", subject, html);
 
     if (error) {
         console.error({ error });
