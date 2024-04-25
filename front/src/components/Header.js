@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import FilterBar from './FilterBar';
+import { useBeers } from '../BeerContext';
 import './Header.css';
 
 const Header = () => {
   const [showFilters, setShowFilters] = useState(false);
   const location = useLocation();
+  const { handleFilter } = useBeers();
 
-  // Ferme la barre de filtre chaque fois que l'URL change
+  const closeFilters = () => {
+        setShowFilters(false);
+    };
+
   useEffect(() => {
     setShowFilters(false);
   }, [location]);
@@ -19,7 +24,7 @@ const Header = () => {
           Filtres
         </button>
       )}
-      {showFilters && <FilterBar />}
+      {showFilters && <FilterBar onFilter={handleFilter} onClose={closeFilters}/>}
       {location.pathname !== '/' && (
         <Link to="/" className="header-link" style={{paddingLeft:'94px'}}>D'une bière deux coups</Link>
       )}

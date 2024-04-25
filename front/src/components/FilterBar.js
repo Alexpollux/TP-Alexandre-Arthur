@@ -1,20 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './FilterBar.css';
 
-const FilterBar = ({ onFilter }) => {
+const FilterBar = ({ onFilter, onClose }) => {
   const [startDate, setStartDate] = useState({ month: '01', year: '2007' });
   const [endDate, setEndDate] = useState({ month: '12', year: '2016' });
-  const [beer, setBeer] = useState(null);
 
-  useEffect(() => {
-    fetch(`http://localhost:1234/api/beers?brewed_before=${startDate}&brewed_after=${endDate}`) // Utilisez le bon port ici aussi
-      .then(response => response.json())
-      .then(data => setBeer(data))
-      .catch(error => console.error("Error fetching data: ", error));
-  }, [startDate, endDate]);
+  const handleFilterClick = () => {
+    const formattedStartDate = `${startDate.month}/${startDate.year}`;
+    const formattedEndDate = `${endDate.month}/${endDate.year}`;
 
-  const handleFilterClick = (startDate, endDate) => {
-    fetch(`http://localhost:1234/api/beers?brewed_before=${startDate}&brewed_after=${endDate}`)
+    if (typeof onFilter === 'function') {
+      onFilter({
+        startDate: formattedStartDate,
+        endDate: formattedEndDate,
+      });
+      if (typeof onClose === 'function') {
+        onClose(); // Fermer le menu des filtres après l'application
+      }
+    } else {
+      console.error('onFilter is not a function');
+    }
   };
 
   return (

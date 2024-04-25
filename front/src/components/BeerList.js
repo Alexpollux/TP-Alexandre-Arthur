@@ -1,35 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useBeers } from '../BeerContext';
 import './BeerList.css';
 
 
 function BeerList() {
   const [beers, setBeers] = useState([]);
-  const [filteredBeers, setFilteredBeers] = useState([]);
+  const { filteredBeers, setFilteredBeers} = useBeers();
 
   useEffect(() => {
     fetch('http://localhost:1234/api/beers')
       .then(response => response.json())
       .then(data => {
         setBeers(data);
-        setFilteredBeers(data);
+          setFilteredBeers(data);
       })
       .catch(error => console.error("Error fetching data: ", error));
   }, []);
-
-  const handleFilter = (filters) => {
-    const startMonthPadded = String(filters.startDate.month).padStart(2, '0');
-    const endMonthPadded = String(filters.endDate.month).padStart(2, '0');
-    const startFilter = `${filters.startDate.year}-${startMonthPadded}`;
-    const endFilter = `${filters.endDate.year}-${endMonthPadded}`;
-
-    const filtered = beers.filter(beer => {
-      const beerFirstBrewedDate = beer.first_brewed.split('/').reverse().join('-');
-      return beerFirstBrewedDate >= startFilter && beerFirstBrewedDate <= endFilter;
-    });
-
-    setFilteredBeers(filtered);
-  };
 
   return (
     <div>
