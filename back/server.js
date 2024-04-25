@@ -1,12 +1,15 @@
-const express = require("express");
-const fs = require('fs');
-const cors = require('cors');
-const { sendEmail } = require('./send-email');
+import express from "express";
+import fs from 'fs';
+import cors from 'cors';
+import { sendEmail } from './send-email.js';
+import dotenv from 'dotenv';
 
-require('dotenv').config()
+dotenv.config();
 
 const app = express();
 const port = 1234;
+
+import { scrapingUntappd} from "./scraping_untappd.js";
 
 app.use(express.json());
 app.use(cors());
@@ -81,6 +84,17 @@ app.post('/api/send-email', async (req, res) => {
     console.log({ data });
     res.send('Email sent successfully');
 });
+
+app.post('/api/scraping', async (req, res) => {
+    const login = false;
+    const performance = false;
+
+    const {email, search, filter, sort} = req.body;
+
+    await scrapingUntappd(login, performance, email, search, filter, sort);
+
+    await res.send('Succesfully !');
+})
 
 app.listen(port, () => {
     console.log(`Serveur démarré sur http://localhost:${port}`);
