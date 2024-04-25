@@ -13,7 +13,7 @@ const FilterBar = ({ onFilter }) => {
       .catch(error => console.error("Error fetching data: ", error));
   }, [startDate, endDate]);
 
-  const handleFilterClick = () => {
+  const handleFilterClick = (startDate, endDate) => {
     fetch(`http://localhost:1234/api/beers?brewed_before=${startDate}&brewed_after=${endDate}`)
   };
 
