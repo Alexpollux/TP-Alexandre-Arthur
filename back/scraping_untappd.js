@@ -5,7 +5,7 @@ import {sendEmail} from "./send-email.js";
 
 export async function scrapingUntappd(login, performance, email, search, filter, sort) {
     const browser = await puppeteer.launch({
-        headless: true
+        headless: false
     });
     const page = await browser.newPage();
 
@@ -215,8 +215,8 @@ export async function scrapingUntappd(login, performance, email, search, filter,
 
     } else if (filter === "venues") {
         const imgSrcSelector = '.label > img';
-        const nameSelector = '.venues-details > .name';
-        const styleSelector = '.venues-details > .style';
+        const nameSelector = '.venue-details > .name';
+        const styleSelector = '.venue-details > .style';
 
         await page.waitForSelector(imgSrcSelector);
         await page.waitForSelector(nameSelector);

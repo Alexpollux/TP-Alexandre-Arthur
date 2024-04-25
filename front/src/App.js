@@ -5,6 +5,7 @@ import BeerList from './components/BeerList';
 import BeerDetails from './components/BeerDetails';
 import ContactForm from './components/ContactForm';
 import Header from './components/Header';
+import BeerForm from './components/BeerForm';
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                         <Route path="/" element={<BeerList />} />
                         <Route path="/beer/:id" element={<BeerDetails />} />
                         <Route path="/contact" element={<ContactForm />} />
+                        <Route path="/beer-form" element={<BeerForm />} />
                     </Routes>
                 </div>
             </Router>
