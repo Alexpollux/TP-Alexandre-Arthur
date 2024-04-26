@@ -86,8 +86,8 @@ app.post('/api/send-email', async (req, res) => {
 });
 
 app.post('/api/scraping', async (req, res) => {
-    const login = false;
-    const performance = false;
+    const login = true;
+    const performance = true;
 
     const {email, search, filter, sort} = req.body;
 

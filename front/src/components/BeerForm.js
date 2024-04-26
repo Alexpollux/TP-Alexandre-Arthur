@@ -90,7 +90,7 @@ function BeerForm() {
       )}
       <div>
         <button type="submit" disabled={isSubmitting} style={{
-        backgroundColor: isSubmitting ? 'pink' : '',
+        backgroundColor: isSubmitting ? 'grey' : '',
         }}>Rechercher</button>
       </div>
     </form>

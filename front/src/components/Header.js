@@ -32,6 +32,10 @@ const Header = () => {
         <Link to="/" className="header-link">D'une bière deux coups</Link>
       )}
       <nav className="header-nav">
+      <Link to="/beer-form" className="header-nav-link">Scraping</Link>
+        
+      </nav>
+      <nav className="header-nav">
       <Link to="/contact" className="header-nav-link">Contact</Link>
         
       </nav>

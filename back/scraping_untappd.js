@@ -134,19 +134,52 @@ export async function scrapingUntappd(login, performance, email, search, filter,
             });
         }
 
-        const htmlContent = `
-            <h1>Liste des Bières</h1>
-            <ul>
-                ${beerDetails.map(beer => `
-                    <li>
-                        <img src="${beer.imgSrc}" alt="${beer.name} label" style="width:50px; height:50px;" />
-                        <strong>${beer.name}</strong> par <em>${beer.brewery}</em> - ${beer.style}
-                        <br />
-                        ABV: ${beer.abv}, IBU: ${beer.ibu}, Note: ${beer.rating}
-                    </li>
-                `).join('')}
-            </ul>
+        console.log(beerDetails);
+
+        const emailStyle = `
+            <style>
+                body { font-family: Arial, sans-serif; line-height: 1.5; }
+                h1 { color: #333; }
+                ul { list-style-type: none; padding: 0; }
+                li { margin: 10px 0; border: 1px solid #ddd; padding: 10px; border-radius: 4px; }
+                strong { color: #000; }
+                em { color: #666; font-style: normal; }
+                .beer-details { background: #f6f6f6; border-left: 5px solid #ccc; margin: 10px 0; padding: 10px; }
+                .beer-name { color: #333; font-size: 16px; font-weight: bold; }
+                .beer-style { color: #666; }
+                .beer-info { color: #000; }
+                img { width: 50px; height: 50px; object-fit: cover; }
+            </style>
         `;
+
+        const htmlContent = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>Liste des Bières</title>
+    ${emailStyle}
+    </head>
+    <body>
+        <h1>Recherche pour : ${search}</h1>
+        <h1>Liste des Bières</h1>
+        <ul>
+            ${beerDetails.map(beer => `
+                <li class="beer-details">
+                    <img src="${beer.imgSrc}" alt="${beer.name} label" />
+                    <div class="beer-info">
+                        <div class="beer-name">${beer.name}</div>
+                        <div class="beer-style">${beer.style0} dans ${beer.style1}</div>
+                        <div>ABV: ${beer.abv}</div>
+                        <div>IBU: ${beer.ibu}</div>
+                        <div>Note: ${beer.rating}</div>
+                    </div>
+                </li>
+            `).join('')}
+        </ul>
+    </body>
+    </html>
+`;
 
         await sendEmail(email, 'Liste des Bières', htmlContent);
 
